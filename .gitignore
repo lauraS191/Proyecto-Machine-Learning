@@ -1,0 +1,17 @@
+
+# Datos de la competencia
+data/
+
+# Modelos entrenados
+models/
+
+# Predicciones de Kaggle
+submissions/
+
+# Entorno virtual
+.venv/
+
+# Archivos temporales de Python
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
