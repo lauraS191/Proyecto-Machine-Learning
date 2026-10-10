@@ -19,7 +19,7 @@ Parte 1 de la competencia de Aprendizaje de Máquina 2026-20: clasificación de 
 | Regresión Logística V2 | `02_Regresion_Logistica.ipynb` | `submission_regresion_logistica_v2.csv` | 0.86555 |
 | SVM lineal, representación V2 | `03_SVM.ipynb` | `submission_svm_lineal_v2.csv` | 0.85666 |
 | Regresión Logística V1 | `02_Regresion_Logistica.ipynb` | `submission_regresion_logistica.csv` | 0.83222 |
-| Naive Bayes (TF-IDF + MultinomialNB) | `04_Naive_Bayes.ipynb` | `naive_bayes.csv` | Pendiente |
+| Naive Bayes, TF-IDF + MultinomialNB por cláusulas | `04_Naive_Bayes.ipynb` | `naive_bayes.csv` | Pendiente |
 
 Para la entrega en Bloque Neón se usa solo el notebook y el modelo del envío con mejor puntaje público. Por ahora es el SVM con cláusulas: `notebooks/03_SVM.ipynb` y `models/svm_lineal_clausulas.joblib`, que necesita `transformaciones.py` para cargarse.
 
@@ -68,19 +68,20 @@ El notebook [04_Naive_Bayes.ipynb](notebooks/04_Naive_Bayes.ipynb) compara BoW y
 2. Preparar el entorno común descrito en la sección Entorno.
 3. Abrir el notebook, seleccionar ese entorno y ejecutar todas las celdas desde la raíz del proyecto o desde `notebooks/`.
 
-La búsqueda compara distintas preparaciones del texto y ajusta con más detalle las dos combinaciones que mejor salen. Usa validación cruzada con cinco particiones y dos procesos; si el computador tiene poca memoria, cambiar `N_JOBS` a `1`.
+La búsqueda compara el texto completo, la última oración, los conectores por oraciones y los conectores por cláusulas. Ajusta con más detalle los dos candidatos de mayor accuracy de CV. Usa cinco particiones y dos procesos; si el computador tiene poca memoria, cambiar `N_JOBS` a `1`.
 
-Se prueban limpieza, stemming en español y stop words, tomando como base P3. Se conservan palabras como "no" y "pero", que pueden cambiar el sentido de una opinión. La preparación del texto queda incluida en el modelo guardado.
+La referencia conserva el stemming en español de P3. Las nuevas representaciones reutilizan `extraer_oraciones_lote`, `marcar_conectores_lote` y `marcar_clausulas_lote` del equipo, combinadas con el texto completo y n-gramas de palabras y caracteres. Las funciones anteriores de `transformaciones.py` siguen intactas; solo se agregó `preparar_textos_nb` para reproducir la referencia.
 
 ### Selección y resultados
 
-- Se usa una división estratificada 80/20 con semilla 42. El modelo se elige por accuracy de validación cruzada, con F1 macro y menor desviación como desempates.
-- La última ejecución eligió **TF-IDF + MultinomialNB con stemming**: 71,50% de accuracy en validación cruzada y 72,25% en el 20% de validación. Ese 20% ya se había consultado en la primera versión.
-- Las 305 configuraciones evaluadas se pueden consultar en una tabla desplegable dentro del notebook. Las nuevas ejecuciones muestran los resultados ahí mismo.
+- Se usa una división estratificada 80/20 con semilla 42 y cinco particiones de CV con la misma semilla. GridSearchCV usa accuracy; entre los finalistas de las cuatro familias se compara también F1 macro y desviación.
+- La última ejecución eligió **TF-IDF + MultinomialNB por cláusulas**, con `alpha=0.1`: **87,61% de accuracy en CV y 87,71% en validación**, frente al 72,25% anterior. F1 macro de validación: 0,8814. Ese 20% ya se había consultado.
+- Las 157 configuraciones evaluadas, la matriz de confusión y los errores se pueden consultar dentro del notebook. Quedaron 295 errores de las 2.400 reseñas de validación.
+- El notebook se volvió a ejecutar completo en Python 3.12 y con las versiones de `requirements.txt`. El modelo recargado produce las mismas 3.000 predicciones que el CSV.
 - `models/naive_bayes.joblib`: modelo entrenado con todo `train.csv`, incluida la preparación del texto.
 - `submissions/naive_bayes.csv`: archivo `id,answer` para subir manualmente a Kaggle.
 
-Cada ejecución reemplaza esos dos archivos. El análisis y los resultados se conservan dentro del notebook.
+Cada ejecución reemplaza esos dos archivos. El análisis y los resultados se conservan dentro del notebook. Para cargar el modelo hay que tener disponible `transformaciones.py`.
 
 ### Entrega de la Parte 1
 
