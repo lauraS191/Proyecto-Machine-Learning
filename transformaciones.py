@@ -89,6 +89,27 @@ def marcar_clausulas_lote(textos, palabras_conector=1):
     ]
 
 
+# Ejemplo de preparación de texto de P3 para el notebook de Naive Bayes.
+def preparar_textos_nb(textos):
+    """Limpieza y stemming español de P3, conservando negaciones y conectores."""
+    from nltk.stem import SnowballStemmer
+
+    stemmer = SnowballStemmer("spanish")
+    protegidas = {
+        "no", "ni", "sin", "nunca", "jamás", "jamas", "tampoco", "pero",
+        "aunque", "sino", "muy", "más", "menos", "bien", "mal", "poco", "casi", "solo", "sólo",
+    }
+    raices, preparados = {}, []
+    for texto in textos:
+        tokens = re.findall(r"(?u)\b\w\w+\b", texto.lower())
+        tokens = [t for t in tokens if not t.isdigit()]
+        for token in tokens:
+            if token not in raices:
+                raices[token] = token if token in protegidas else stemmer.stem(token)
+        preparados.append(" ".join(raices[t] for t in tokens))
+    return preparados
+
+
 # ============================================================
 # Extracción de cláusula dominante
 # ============================================================

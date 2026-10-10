@@ -19,7 +19,7 @@ Parte 1 de la competencia de Aprendizaje de Máquina 2026-20: clasificación de 
 | Regresión Logística V2 | `02_Regresion_Logistica.ipynb` | `submission_regresion_logistica_v2.csv` | 0.86555 |
 | SVM lineal, representación V2 | `03_SVM.ipynb` | `submission_svm_lineal_v2.csv` | 0.85666 |
 | Regresión Logística V1 | `02_Regresion_Logistica.ipynb` | `submission_regresion_logistica.csv` | 0.83222 |
-| Naive Bayes (TF-IDF + MultinomialNB) | `04_Naive_Bayes.ipynb` | `naive_bayes.csv` | Pendiente |
+| Naive Bayes, TF-IDF + MultinomialNB por cláusulas | `04_Naive_Bayes.ipynb` | `naive_bayes.csv` | Pendiente |
 | Línea base de la competencia | | `submission_baseline_nb.csv` | 0.65555 |
 
 Para la entrega en Bloque Neón se usa solo el notebook y el modelo del envío con mejor puntaje público. Por ahora es el SVM con cláusulas: `notebooks/03_SVM.ipynb` y `models/svm_lineal_clausulas.joblib`, que necesita `transformaciones.py` para cargarse.
@@ -63,36 +63,43 @@ Los notebooks `02_Regresion_Logistica.ipynb` y `03_SVM.ipynb` definen sus propia
 
 ## Experimento de Naive Bayes (Alejandro Abril)
 
-El notebook [04_Naive_Bayes.ipynb](notebooks/04_Naive_Bayes.ipynb) compara BoW y TF-IDF con MultinomialNB y ComplementNB. Las tablas, la matriz de confusión, los errores y la conclusión se ven dentro del notebook.
+El notebook [04_Naive_Bayes.ipynb](notebooks/04_Naive_Bayes.ipynb) compara BoW y TF-IDF con MultinomialNB y ComplementNB. Los resultados, las gráficas, los errores y la conclusión quedan en el notebook.
 
-### Ejecución
+### Cómo ejecutarlo
 
 1. Ubicar `train.csv` en `data/`. Para generar el envío, agregar `eval.csv` y `sample_submission.csv`.
-2. Preparar el entorno común descrito en la sección Entorno.
+2. Preparar el entorno común de Python 3.12 descrito arriba.
 3. Abrir el notebook, seleccionar ese entorno y ejecutar todas las celdas desde la raíz del proyecto o desde `notebooks/`.
 
-La búsqueda compara distintas preparaciones del texto y ajusta con más detalle las dos combinaciones que mejor salen. Usa validación cruzada con cinco particiones y dos procesos; si el computador tiene poca memoria, cambiar `N_JOBS` a `1`.
+La ejecución completa toma tiempo: además de la búsqueda global, repite las dos etapas dentro de cada una de las cinco particiones externas. Usa dos procesos; si falta memoria, cambiar `N_JOBS` a `1`.
 
-Se prueban limpieza, stemming en español y stop words, tomando como base P3. Se conservan palabras como "no" y "pero", que pueden cambiar el sentido de una opinión. La preparación del texto queda incluida en el modelo guardado.
+### Qué se probó
 
-### Selección y resultados
+La primera búsqueda compara las cuatro combinaciones de representación y clasificador: `alpha=[0.01, 0.03, 0.1, 0.3, 1]`, unigramas o unigramas con bigramas, y `min_df=[1, 2, 3]`. Después se refinan las dos mejores combinaciones con conteos binarios o TF logarítmico, una o dos palabras de conector, una o dos oraciones finales y cuatro opciones de pesos.
 
-- Se usa una división estratificada 80/20 con semilla 42. El modelo se elige por accuracy de validación cruzada, con F1 macro y menor desviación como desempates.
-- La última ejecución eligió **TF-IDF + MultinomialNB con stemming**: 71,50% de accuracy en validación cruzada y 72,25% en el 20% de validación. Ese 20% ya se había consultado en la primera versión.
-- Las 305 configuraciones evaluadas se pueden consultar en una tabla desplegable dentro del notebook. Las nuevas ejecuciones muestran los resultados ahí mismo.
-- `models/naive_bayes.joblib`: modelo entrenado con todo `train.csv`, incluida la preparación del texto.
-- `submissions/naive_bayes.csv`: archivo `id,answer` para subir manualmente a Kaggle.
+Los bloques reúnen el texto completo, las marcas de cláusulas y las últimas oraciones como palabras y caracteres. Se reutilizan las transformaciones del equipo. Las adaptaciones a las reseñas se explican por separado de lo visto en clase.
 
-Cada ejecución reemplaza esos dos archivos. El análisis y los resultados se conservan dentro del notebook.
+La base es [MaterialDeClase-ISIS-2611/202620](https://github.com/alejandroabrilm/MaterialDeClase-ISIS-2611/tree/main/202620): calidad de datos de P1/P2, representación de texto de P3, pipelines y evaluación anidada de P7, y comparación y bootstrap del Laboratorio 2. En 202620 no hay una práctica específica de Naive Bayes; el notebook explica sus supuestos y parámetros con la documentación de scikit-learn.
 
-### Entrega de la Parte 1
+### Resultados de esta ejecución
 
-La sección 4.2 del PDF pide el notebook y el modelo entrenado guardado con pickle o joblib. Para Naive Bayes, estos archivos son `notebooks/04_Naive_Bayes.ipynb` y `models/naive_bayes.joblib`. El CSV de `submissions/` se utiliza en Kaggle.
+- Se conserva la división estratificada 80/20 y la semilla 42. La selección usa accuracy de CV; los desempates usan F1 macro y menor desviación.
+- La referencia anterior se reprodujo: **87,61% en CV** y **87,71% en validación**.
+- Ganador: **TF-IDF + MultinomialNB**, con `alpha=0.1`, n-gramas `[1, 2]` y `min_df=1`. Obtuvo **87,81% en CV** y **87,71% en el 20% reutilizado**; F1 macro: **0.8814**. Quedaron **295 errores de 2.400 reseñas**.
+- La evaluación anidada obtuvo **87.45% ± 1.09 puntos** de accuracy externa, frente a **87.61%** de la referencia. Comparo estos valores con la búsqueda global para revisar cuánto optimismo introduce la selección de parámetros. El signo ± corresponde a la desviación entre folds.
+- Las **184 configuraciones**, la eliminación de cada bloque, las métricas por clase y ejemplos de errores están dentro del notebook. La CV anidada repite las 184 configuraciones en cada partición externa.
+- El modelo recargado reproduce las 3.000 predicciones del CSV; una segunda ejecución secuencial de la CV del ganador comprueba las métricas de la búsqueda.
 
-El grupo debe entregar únicamente el notebook y el modelo que correspondan a su mejor envío público de Kaggle. Este experimento es el candidato de Naive Bayes; su elección como modelo final depende de la comparación con los demás envíos.
+`eval.csv` se usa únicamente al generar las predicciones finales. El 20% ya se había consultado en versiones anteriores, por eso se reporta como evaluación complementaria. La evaluación anidada mide la búsqueda definida en esta versión; el diseño de características también recibió información de experimentos anteriores.
 
-Después de subir el CSV, hay que anotar el score de Kaggle y compararlo con los envíos del resto del grupo.
+La meta de **90% público en Kaggle sigue pendiente**. El CSV de esta versión está listo para subir; no se le atribuye el puntaje de otros modelos. La sección de la rúbrica registra la línea base de 0,65555 y la evidencia del grupo consultada en Kaggle, con fecha.
 
-La sección 1 del notebook relaciona cada paso con las secciones y ejercicios de `MaterialDeClase-ISIS-2611/202620`: preparación y representación de texto de P3, entrenamiento y evaluación de P7, y comparación de modelos del Laboratorio 2. También explica las adaptaciones a las reseñas en español.
+### Archivos para entregar
 
-La elección de MultinomialNB y ComplementNB viene del acuerdo del grupo. En la carpeta 202620 no se encontró una práctica específica de Naive Bayes; sus parámetros se explican como ajustes de los clasificadores y se referencian a la documentación de scikit-learn. Las referencias y la ayuda de IA utilizada están al final del notebook.
+- `models/naive_bayes.joblib`: pipeline entrenado con las 12.000 reseñas.
+- `submissions/naive_bayes.csv`: archivo de 3.000 filas con columnas `id,answer`.
+- `notebooks/04_Naive_Bayes.ipynb`: código, resultados y explicación.
+
+Cada ejecución reemplaza el modelo y el CSV. Para cargar el modelo debe estar disponible `transformaciones.py`; la función de preparación de Naive Bayes se conserva para el ejemplo de stemming de P3.
+
+La sección 4.2 del PDF pide el notebook y el modelo guardado. El CSV se usa en Kaggle. El equipo escogerá su entrega final según el mejor envío público; este trabajo aporta el candidato de Naive Bayes.
