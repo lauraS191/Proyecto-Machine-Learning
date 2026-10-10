@@ -1,0 +1,2 @@
+# El equipo usa un único entorno; las versiones están en requirements.txt.
+-r requirements.txt
