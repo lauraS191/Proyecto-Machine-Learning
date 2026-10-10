@@ -48,16 +48,18 @@ Después, en Jupyter o VS Code, se selecciona el kernel del `.venv` antes de eje
 
 ## Cargar un modelo
 
-Los pipelines usan funciones de `transformaciones.py`, así que ese archivo debe estar en la misma carpeta (o en el `sys.path`) al cargar el modelo:
+Los modelos de SVM y de Regresión Logística se guardaron con `cloudpickle`, que viene instalado con joblib y scikit-learn. Así el código de las funciones que transforman el texto queda dentro del archivo, y basta con `joblib.load`, sin ningún archivo adicional:
 
 ```python
 import joblib
 import pandas as pd
 
-modelo = joblib.load("models/svm_lineal_conectores.joblib")
+modelo = joblib.load("models/svm_lineal_clausulas.joblib")
 eval_data = pd.read_csv("data/eval.csv")
 predicciones = modelo.predict(eval_data["text"])
 ```
+
+Los notebooks `02_Regresion_Logistica.ipynb` y `03_SVM.ipynb` definen sus propias funciones de transformación, así que tampoco necesitan `transformaciones.py` para ejecutarse. Ese archivo se mantiene en el repositorio para que el resto del equipo pueda reutilizar las funciones.
 
 ## Experimento de Naive Bayes (Alejandro Abril)
 

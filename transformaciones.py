@@ -89,7 +89,7 @@ def marcar_clausulas_lote(textos, palabras_conector=1):
     ]
 
 
-# Preparación del texto completo usada como referencia en Naive Bayes.
+# Ejemplo de preparación de texto de P3 para el notebook de Naive Bayes.
 def preparar_textos_nb(textos):
     """Limpieza y stemming español de P3, conservando negaciones y conectores."""
     from nltk.stem import SnowballStemmer
@@ -108,3 +108,62 @@ def preparar_textos_nb(textos):
                 raices[token] = token if token in protegidas else stemmer.stem(token)
         preparados.append(" ".join(raices[t] for t in tokens))
     return preparados
+
+
+# ============================================================
+# Extracción de cláusula dominante
+# ============================================================
+
+_CONECTORES_DOMINANTES = [
+    "pero",
+    "aunque",
+    "sin embargo",
+    "aun así",
+    "aún así",
+    "aun asi",
+    "al final",
+    "eso sí",
+    "eso si",
+    "ahora",
+]
+
+
+def extraer_clausula_dominante(texto):
+    """
+    Extrae el fragmento posterior al último conector fuerte de la reseña.
+    Si no encuentra ninguno, usa la última oración como fallback.
+    """
+    texto = str(texto)
+    texto_lower = texto.lower()
+
+    mejor_inicio = -1
+    mejor_fin = None
+
+    for conector in _CONECTORES_DOMINANTES:
+        patron = r"(?<!\w)" + re.escape(conector) + r"(?!\w)"
+
+        for match in re.finditer(patron, texto_lower):
+            if match.start() > mejor_inicio:
+                mejor_inicio = match.start()
+                mejor_fin = match.end()
+
+    if mejor_inicio >= 0:
+        resto = texto[mejor_fin:]
+        corte = re.search(r"[.!?;]", resto)
+
+        if corte:
+            resto = resto[:corte.start()]
+
+        resto = resto.strip(" ,:-")
+
+        if resto:
+            return resto
+
+    return extraer_ultimas_oraciones(texto, cantidad=1)
+
+
+def extraer_clausulas_dominantes_lote(textos):
+    return [
+        extraer_clausula_dominante(texto)
+        for texto in textos
+    ]
