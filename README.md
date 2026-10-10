@@ -93,4 +93,4 @@ Después de subir el CSV, hay que anotar el score de Kaggle y compararlo con los
 
 La sección 1 del notebook relaciona cada paso con las secciones y ejercicios de `MaterialDeClase-ISIS-2611/202620`: preparación y representación de texto de P3, entrenamiento y evaluación de P7, y comparación de modelos del Laboratorio 2. También explica las adaptaciones a las reseñas en español.
 
-La elección de MultinomialNB y ComplementNB viene del acuerdo del grupo. En la carpeta 202620 no se encontró una práctica específica de Naive Bayes; sus parámetros se explican como ajustes de los clasificadores y se referencian a la documentación de scikit-learn. Las referencias y la ayuda de IA utilizada están al final del notebook.
+La elección de MultinomialNB y ComplementNB viene del acuerdo del grupo. En la carpeta 202620 no se encontró una práctica específica de Naive Bayes; sus parámetros se explican como ajustes de los clasificadores y se referencian a la documentación de scikit-learn. Las referencias están al final del notebook.
