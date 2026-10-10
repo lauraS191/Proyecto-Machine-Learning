@@ -23,3 +23,25 @@ def extraer_oraciones_lote(textos, cantidad=1):
         extraer_ultimas_oraciones(texto, cantidad)
         for texto in textos
     ]
+
+
+def marcar_conectores(texto, palabras_conector=2):
+    # Cada palabra se marca con las primeras palabras de su frase (el conector)
+    # y con la posición de la frase contada desde el final de la reseña
+    frases = re.split(r"(?<=[.!?;])\s+", texto.strip())
+    frases = [f for f in frases if f.strip()]
+    tokens = []
+    for i, frase in enumerate(frases):
+        palabras = re.findall(r"\w+", frase.lower())
+        conector = "_".join(palabras[:palabras_conector])
+        posicion = len(frases) - i
+        tokens += [f"{conector}__{p}" for p in palabras]
+        tokens += [f"p{posicion}__{p}" for p in palabras]
+    return " ".join(tokens)
+
+
+def marcar_conectores_lote(textos, palabras_conector=2):
+    return [
+        marcar_conectores(texto, palabras_conector)
+        for texto in textos
+    ]
