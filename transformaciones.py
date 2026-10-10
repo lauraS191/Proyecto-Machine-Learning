@@ -45,3 +45,45 @@ def marcar_conectores_lote(textos, palabras_conector=2):
         marcar_conectores(texto, palabras_conector)
         for texto in textos
     ]
+
+
+def segmentar_clausulas(texto):
+    # Divide en oraciones y, dentro de cada oración, antes de conjunciones
+    # como "pero", "aunque" o ", y", que suelen separar dos opiniones
+    frases = re.split(r"(?<=[.!?;])\s+", texto.strip())
+    conjunciones = r"(?:pero|aunque|y|sin embargo|mientras que|en cambio|pues|porque|ya que|así que)"
+    clausulas = []
+    for frase in frases:
+        partes = re.split(
+            r",\s*(?=" + conjunciones + r"\b)|\s+(?=(?:pero|aunque|sin embargo)\b)",
+            frase,
+            flags=re.I
+        )
+        clausulas += [p for p in partes if p and p.strip()]
+    return clausulas
+
+
+def marcar_clausulas(texto, palabras_conector=1):
+    # Igual que marcar_conectores, pero por cláusulas, y agregando también
+    # el conector de la cláusula anterior
+    clausulas = segmentar_clausulas(texto)
+    conectores = [
+        "_".join(re.findall(r"\w+", c.lower())[:palabras_conector])
+        for c in clausulas
+    ]
+    tokens = []
+    for i, clausula in enumerate(clausulas):
+        palabras = re.findall(r"\w+", clausula.lower())
+        posicion = len(clausulas) - i
+        tokens += [f"{conectores[i]}__{p}" for p in palabras]
+        tokens += [f"p{posicion}__{p}" for p in palabras]
+        if i > 0:
+            tokens += [f"tras_{conectores[i - 1]}__{p}" for p in palabras]
+    return " ".join(tokens)
+
+
+def marcar_clausulas_lote(textos, palabras_conector=1):
+    return [
+        marcar_clausulas(texto, palabras_conector)
+        for texto in textos
+    ]
