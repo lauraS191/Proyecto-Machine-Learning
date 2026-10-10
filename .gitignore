@@ -1,13 +1,3 @@
-
-# Datos de la competencia
-data/
-
-# Modelos entrenados
-models/
-
-# Predicciones de Kaggle
-submissions/
-
 # Entorno virtual
 .venv/
 
