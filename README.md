@@ -20,6 +20,7 @@ Parte 1 de la competencia de Aprendizaje de Máquina 2026-20: clasificación de 
 | SVM lineal, representación V2 | `03_SVM.ipynb` | `submission_svm_lineal_v2.csv` | 0.85666 |
 | Regresión Logística V1 | `02_Regresion_Logistica.ipynb` | `submission_regresion_logistica.csv` | 0.83222 |
 | Naive Bayes (TF-IDF + MultinomialNB) | `04_Naive_Bayes.ipynb` | `naive_bayes.csv` | Pendiente |
+| Línea base de la competencia | | `submission_baseline_nb.csv` | 0.65555 |
 
 Para la entrega en Bloque Neón se usa solo el notebook y el modelo del envío con mejor puntaje público. Por ahora es el SVM con cláusulas: `notebooks/03_SVM.ipynb` y `models/svm_lineal_clausulas.joblib`, que necesita `transformaciones.py` para cargarse.
 
