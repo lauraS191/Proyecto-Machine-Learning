@@ -14,7 +14,7 @@ id,answer
 12,negativo
 13,negativo
 14,positivo
-15,positivo
+15,negativo
 16,negativo
 17,negativo
 18,neutral
@@ -43,7 +43,7 @@ id,answer
 41,negativo
 42,neutral
 43,positivo
-44,negativo
+44,positivo
 45,positivo
 46,neutral
 47,negativo
@@ -64,7 +64,7 @@ id,answer
 62,positivo
 63,positivo
 64,neutral
-65,negativo
+65,positivo
 66,negativo
 67,negativo
 68,neutral
@@ -209,7 +209,7 @@ id,answer
 207,positivo
 208,positivo
 209,negativo
-210,positivo
+210,negativo
 211,negativo
 212,positivo
 213,negativo
@@ -349,7 +349,7 @@ id,answer
 347,neutral
 348,negativo
 349,negativo
-350,positivo
+350,negativo
 351,negativo
 352,positivo
 353,negativo
@@ -372,7 +372,7 @@ id,answer
 370,neutral
 371,neutral
 372,positivo
-373,neutral
+373,negativo
 374,negativo
 375,positivo
 376,neutral
@@ -493,7 +493,7 @@ id,answer
 491,negativo
 492,negativo
 493,negativo
-494,positivo
+494,negativo
 495,neutral
 496,negativo
 497,positivo
@@ -559,7 +559,7 @@ id,answer
 557,positivo
 558,negativo
 559,neutral
-560,positivo
+560,negativo
 561,positivo
 562,neutral
 563,positivo
@@ -666,7 +666,7 @@ id,answer
 664,negativo
 665,neutral
 666,positivo
-667,positivo
+667,negativo
 668,neutral
 669,neutral
 670,positivo
@@ -813,7 +813,7 @@ id,answer
 811,negativo
 812,neutral
 813,positivo
-814,positivo
+814,negativo
 815,positivo
 816,neutral
 817,negativo
@@ -861,7 +861,7 @@ id,answer
 859,negativo
 860,negativo
 861,neutral
-862,negativo
+862,positivo
 863,neutral
 864,neutral
 865,neutral
@@ -906,7 +906,7 @@ id,answer
 904,negativo
 905,negativo
 906,negativo
-907,neutral
+907,positivo
 908,positivo
 909,neutral
 910,neutral
@@ -934,7 +934,7 @@ id,answer
 932,neutral
 933,neutral
 934,positivo
-935,negativo
+935,positivo
 936,neutral
 937,negativo
 938,neutral
@@ -1074,7 +1074,7 @@ id,answer
 1072,neutral
 1073,negativo
 1074,negativo
-1075,positivo
+1075,negativo
 1076,negativo
 1077,positivo
 1078,negativo
@@ -1090,7 +1090,7 @@ id,answer
 1088,neutral
 1089,negativo
 1090,neutral
-1091,neutral
+1091,negativo
 1092,negativo
 1093,neutral
 1094,neutral
@@ -1177,7 +1177,7 @@ id,answer
 1175,negativo
 1176,neutral
 1177,positivo
-1178,positivo
+1178,negativo
 1179,positivo
 1180,negativo
 1181,negativo
@@ -1226,7 +1226,7 @@ id,answer
 1224,neutral
 1225,neutral
 1226,neutral
-1227,positivo
+1227,negativo
 1228,negativo
 1229,neutral
 1230,neutral
@@ -1241,7 +1241,7 @@ id,answer
 1239,positivo
 1240,neutral
 1241,positivo
-1242,positivo
+1242,negativo
 1243,negativo
 1244,positivo
 1245,negativo
@@ -1272,7 +1272,7 @@ id,answer
 1270,positivo
 1271,negativo
 1272,neutral
-1273,negativo
+1273,positivo
 1274,negativo
 1275,positivo
 1276,neutral
@@ -1280,7 +1280,7 @@ id,answer
 1278,positivo
 1279,neutral
 1280,negativo
-1281,negativo
+1281,positivo
 1282,neutral
 1283,positivo
 1284,positivo
@@ -1373,7 +1373,7 @@ id,answer
 1371,negativo
 1372,neutral
 1373,negativo
-1374,positivo
+1374,negativo
 1375,negativo
 1376,positivo
 1377,positivo
@@ -1568,7 +1568,7 @@ id,answer
 1566,negativo
 1567,positivo
 1568,positivo
-1569,negativo
+1569,positivo
 1570,neutral
 1571,positivo
 1572,negativo
@@ -1688,7 +1688,7 @@ id,answer
 1686,positivo
 1687,positivo
 1688,positivo
-1689,negativo
+1689,positivo
 1690,positivo
 1691,negativo
 1692,negativo
@@ -1710,10 +1710,10 @@ id,answer
 1708,negativo
 1709,positivo
 1710,neutral
-1711,negativo
+1711,positivo
 1712,neutral
 1713,neutral
-1714,negativo
+1714,positivo
 1715,negativo
 1716,positivo
 1717,positivo
@@ -1757,7 +1757,7 @@ id,answer
 1755,neutral
 1756,positivo
 1757,positivo
-1758,positivo
+1758,negativo
 1759,positivo
 1760,positivo
 1761,positivo
@@ -1782,7 +1782,7 @@ id,answer
 1780,neutral
 1781,positivo
 1782,negativo
-1783,negativo
+1783,positivo
 1784,positivo
 1785,neutral
 1786,neutral
@@ -1812,7 +1812,7 @@ id,answer
 1810,neutral
 1811,neutral
 1812,negativo
-1813,negativo
+1813,positivo
 1814,neutral
 1815,negativo
 1816,negativo
@@ -1867,7 +1867,7 @@ id,answer
 1865,negativo
 1866,positivo
 1867,negativo
-1868,neutral
+1868,negativo
 1869,negativo
 1870,neutral
 1871,negativo
@@ -1883,7 +1883,7 @@ id,answer
 1881,positivo
 1882,neutral
 1883,positivo
-1884,positivo
+1884,negativo
 1885,negativo
 1886,negativo
 1887,neutral
@@ -1898,7 +1898,7 @@ id,answer
 1896,positivo
 1897,positivo
 1898,neutral
-1899,negativo
+1899,positivo
 1900,neutral
 1901,neutral
 1902,negativo
@@ -1988,7 +1988,7 @@ id,answer
 1986,neutral
 1987,positivo
 1988,neutral
-1989,positivo
+1989,negativo
 1990,negativo
 1991,positivo
 1992,neutral
@@ -2056,7 +2056,7 @@ id,answer
 2054,positivo
 2055,negativo
 2056,negativo
-2057,positivo
+2057,negativo
 2058,positivo
 2059,negativo
 2060,neutral
@@ -2126,7 +2126,7 @@ id,answer
 2124,negativo
 2125,neutral
 2126,negativo
-2127,negativo
+2127,positivo
 2128,positivo
 2129,neutral
 2130,negativo
@@ -2287,7 +2287,7 @@ id,answer
 2285,positivo
 2286,negativo
 2287,negativo
-2288,positivo
+2288,negativo
 2289,positivo
 2290,positivo
 2291,negativo
@@ -2535,7 +2535,7 @@ id,answer
 2533,negativo
 2534,positivo
 2535,neutral
-2536,negativo
+2536,positivo
 2537,neutral
 2538,neutral
 2539,positivo
@@ -2658,7 +2658,7 @@ id,answer
 2656,positivo
 2657,neutral
 2658,neutral
-2659,negativo
+2659,positivo
 2660,neutral
 2661,neutral
 2662,positivo
@@ -2714,7 +2714,7 @@ id,answer
 2712,positivo
 2713,positivo
 2714,neutral
-2715,positivo
+2715,negativo
 2716,negativo
 2717,negativo
 2718,positivo
@@ -2857,7 +2857,7 @@ id,answer
 2855,positivo
 2856,positivo
 2857,negativo
-2858,positivo
+2858,negativo
 2859,positivo
 2860,negativo
 2861,positivo
