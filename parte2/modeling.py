@@ -215,6 +215,7 @@ def train(args):
                 bf16=target.type == "cuda" and torch.cuda.is_bf16_supported(),
                 use_cpu=target.type == "cpu", seed=config["seed"], data_seed=config["seed"],
                 report_to="none", logging_steps=max(1, steps_per_epoch // 10),
+                disable_tqdm=True,
                 dataloader_num_workers=0, dataloader_pin_memory=target.type == "cuda",
                 gradient_checkpointing=True,
             )
