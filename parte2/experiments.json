@@ -1,0 +1,35 @@
+{
+  "defaults": {
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 8,
+    "effective_batch_size": 32,
+    "max_length": 256,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1
+  },
+  "experiments": {
+    "xlmr_1e5": {
+      "model": "FacebookAI/xlm-roberta-base",
+      "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+      "learning_rate": 0.00001
+    },
+    "xlmr_2e5": {
+      "model": "FacebookAI/xlm-roberta-base",
+      "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+      "learning_rate": 0.00002
+    },
+    "mdeberta_1e5": {
+      "model": "microsoft/mdeberta-v3-base",
+      "revision": "a0484667b22365f84929a935b5e50a51f71f159d",
+      "learning_rate": 0.00001,
+      "tokenizer_use_fast": false
+    },
+    "mdeberta_2e5": {
+      "model": "microsoft/mdeberta-v3-base",
+      "revision": "a0484667b22365f84929a935b5e50a51f71f159d",
+      "learning_rate": 0.00002,
+      "tokenizer_use_fast": false
+    }
+  }
+}

@@ -1,5 +1,13 @@
 # Proyecto-Machine-Learning
 
+## Parte 2 de la competencia
+
+La implementación multilingüe con transformers, aumentación y evaluación
+reproducible está en [parte2/README.md](parte2/README.md). El notebook de ejecución
+es [08_Parte2_Deep_Learning.ipynb](notebooks/08_Parte2_Deep_Learning.ipynb).
+Los nuevos datos y los artefactos usan directorios independientes. La sección
+siguiente documenta los resultados obtenidos en la Parte 1.
+
 Parte 1 de la competencia de Aprendizaje de Máquina 2026-20: clasificación de sentimientos (positivo, negativo o neutral) en reseñas de productos en español, usando solo técnicas clásicas de scikit-learn.
 
 ## Estructura

@@ -5,3 +5,9 @@
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
+
+# Parte 2: entorno, datos del curso y artefactos de GPU
+.venv-parte2/
+data/parte2/
+artifacts/parte2/
+submissions/parte2/
