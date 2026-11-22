@@ -20,6 +20,13 @@ Artículos de referencia:
 - Lui, M. & Baldwin, T. (2012). *langid.py: An Off-the-shelf Language Identification Tool*. ACL 2012 System Demonstrations.
 - Sennrich, R., Haddow, B. & Birch, A. (2016). *Improving Neural Machine Translation Models with Monolingual Data*. ACL 2016. Es el origen de la aumentación por traducción.
 
+### Arquitecturas utilizadas
+
+- **Clasificador (modelo entregado):** XLM-RoBERTa large, un transformer *encoder-only* de la familia de BERT y RoBERTa, con una cabeza de clasificación de 3 salidas. Es el único modelo que interviene al predecir, como indica el comunicado del curso sobre el uso de arquitecturas *encoder-only*.
+- **Línea base:** `paraphrase-multilingual-mpnet-base-v2`, también *encoder-only*, con un MLP encima.
+- **NLLB-200 (solo para la aumentación):** es un modelo de traducción *encoder-decoder*, no *decoder-only*. Lo usamos únicamente para generar traducciones de reseñas de `train.csv` como datos sintéticos de entrenamiento, algo que la sección 4 del enunciado permite de forma explícita ("traducciones o paráfrasis generadas"). No clasifica, no etiqueta ninguna reseña (las sintéticas heredan la etiqueta de su original), no toca `eval.csv` y no forma parte del modelo entregado.
+- En ninguna parte del proyecto usamos modelos *decoder-only* ni modelos generativos para clasificar o etiquetar.
+
 ## 2. Datos
 
 - **Datos de la competencia:** `train.csv`, `eval.csv` y `sample_submission.csv` de la competencia de Kaggle *Parte 2 - Competencia Aprendizaje de Máquina 2026-20*. `eval.csv` solo se usó para generar predicciones, nunca para entrenar ni para elegir modelos.
