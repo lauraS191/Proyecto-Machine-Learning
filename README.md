@@ -2,6 +2,26 @@
 
 Parte 1 de la competencia de Aprendizaje de Máquina 2026-20: clasificación de sentimientos (positivo, negativo o neutral) en reseñas de productos en español, usando solo técnicas clásicas de scikit-learn.
 
+## Parte 2: reseñas multilingües con aprendizaje profundo
+
+- Notebook: [notebooks/P2_XLMR_Aumentacion.ipynb](notebooks/P2_XLMR_Aumentacion.ipynb). Hace *fine-tuning* de XLM-RoBERTa large con aumentación por traducción (NLLB-200) y *code-switching*.
+- Datos: `data/parte2/` (`train.csv`, `eval.csv`, `sample_submission.csv`).
+- Referencias, licencias y uso de IA: [docs/Parte2_Referencias_y_uso_de_IA.md](docs/Parte2_Referencias_y_uso_de_IA.md).
+- Necesita una GPU, así que se ejecuta en un notebook de Kaggle con *GPU T4 x2* e *Internet On*, o en Colab con T4. Las instrucciones están al inicio del notebook. Con una T4 tarda entre 1,5 y 2 horas.
+- Genera cinco envíos en `submissions/`: `1_embeddings_mlp`, `2_xlmr_sin_aug`, `3_xlmr_con_aug`, `4_ensamble_sin_con` y `5_xlmr_con_aug_full`. El modelo final queda en `modelo_final_xlmr/` (~1,1 GB, fp16, safetensors). Ese modelo no se sube a git por su tamaño.
+
+| Envío | Accuracy validación | Puntaje público |
+|---|---|---|
+| 1_embeddings_mlp | 0.7599 | 0.75589 |
+| 2_xlmr_sin_aug | 0.9114 | 0.89538 |
+| 3_xlmr_con_aug | 0.9098 | 0.89685 |
+| 4_ensamble_sin_con | 0.9088 | 0.89734 |
+| **5_xlmr_con_aug_full** (modelo entregado) | — | **0.90471** |
+
+Para Bloque Neón se entrega `notebooks/P2_XLMR_Aumentacion.ipynb` (ya ejecutado, con sus salidas), la carpeta `modelo_final_xlmr/` del Output de Kaggle y el documento de referencias y uso de IA.
+
+## Parte 1
+
 ## Estructura
 
 - `data/`: archivos de la competencia (`train.csv`, `eval.csv`, `sample_submission.csv`).

@@ -5,3 +5,8 @@
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
+
+# Salidas pesadas de la Parte 2 (modelos de ~1 GB)
+salidas_parte2/
+notebooks/salidas_parte2/
+modelo_final_xlmr/
