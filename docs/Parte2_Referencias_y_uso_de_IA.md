@@ -39,15 +39,27 @@ Artículos de referencia:
   - En la comparación con y sin aumentación se excluyeron las reseñas sintéticas cuyo original estaba en la partición de validación.
   - El detalle completo y el código están en la sección 8 del notebook, y el resultado se guarda en `aumentacion_traduccion.csv`.
 
-## 3. Uso de IA generativa
+## 3. Uso de herramientas de IA generativa
 
-> **Nota para el grupo:** completar y ajustar esta sección para que refleje exactamente cómo se usó la IA. Agregar el uso de cada integrante.
+**Herramienta utilizada:** Claude (Anthropic), asistente de IA conversacional, usado a lo largo del desarrollo de la Parte 2 desde Claude Code dentro de Visual Studio Code.
 
-- **Herramienta:** Claude (Anthropic), mediante Claude Code en VS Code.
-- **Para qué se usó:**
-  - Analizar el enunciado de la Parte 2 y las prácticas del curso (P14 perceptrón multicapa, P15 embeddings, P16 RNN/CNN) para proponer un enfoque coherente con lo visto en clase.
-  - Explorar los datos, en particular la distribución de idiomas de `train` frente a `eval`.
-  - Escribir el borrador del código del notebook (carga de datos, detector de idioma, línea base, bucle de *fine-tuning* en PyTorch, aumentación por traducción y análisis de errores) y de los textos explicativos.
-  - Redactar este documento.
-- **Qué hizo el grupo:** revisar y ejecutar el notebook en GPU, verificar los resultados, completar las conclusiones con los números obtenidos, subir los envíos a Kaggle y elegir el modelo final según el puntaje público.
-- **Qué no se hizo con IA:** ningún modelo generativo etiquetó ni clasificó los textos de `eval.csv`. Todas las predicciones enviadas salen del modelo entregado, entrenado solo con `train.csv` y los datos sintéticos descritos arriba.
+**Tipo de uso:** apoyo en la generación inicial y depuración de código (detector de idioma con langid y regla de code-switching, entrenamiento de XLM-RoBERTa en PyTorch, aumentación con NLLB-200 y análisis de errores por idioma), explicación conceptual (arquitecturas encoder-only frente a encoder-decoder, puntaje público frente a privado en Kaggle, validación del modelo final, prueba de McNemar) y apoyo en la redacción del notebook y de este documento.
+
+### Prompts principales utilizados
+
+- Apoyo para plantear el enfoque a partir del enunciado y de las prácticas P14, P15 y P16 del curso, buscando un modelo multilingüe competitivo y coherente con lo visto en clase.
+- Apoyo para construir el detector de idioma (langid más una regla para las mezclas español-inglés) y ajustar sus umbrales revisando a mano los falsos positivos.
+- Apoyo para escribir la línea base con embeddings congelados y mean pooling, como en P15, y el MLP con dropout y early stopping, como en P14.
+- Apoyo para escribir el bucle de fine-tuning de XLM-RoBERTa large en PyTorch (AdamW, calentamiento lineal, precisión mixta, label smoothing y selección de la mejor época), de forma que cupiera en una GPU T4 de Kaggle.
+- Apoyo para implementar la aumentación con NLLB-200, traduciendo oración por oración y armando el code-switching, sin que ninguna reseña sintética viniera de la partición de validación.
+- Pregunta sobre cómo comparar con y sin aumentación de forma justa, lo que llevó a usar la misma partición, la misma semilla y la prueba de McNemar.
+- Apoyo para organizar el notebook por iteraciones, de modo que cada una generara un envío distinto para Kaggle.
+- Consulta sobre por qué el modelo final no tiene accuracy de validación y cómo justificarlo.
+- Consulta sobre el comunicado de arquitecturas encoder-only y si el uso de NLLB en la aumentación lo cumplía.
+- Apoyo para redactar los textos del notebook a partir de los resultados ya obtenidos y para redactar este documento.
+
+### Trabajo del grupo
+
+Definimos el objetivo del modelo y las prácticas del curso en las que debía basarse, trabajamos el código del notebook con el apoyo descrito, ejecutamos y supervisamos el entrenamiento en Kaggle con GPU, revisamos los resultados de cada iteración, subimos los cinco envíos y comparamos sus puntajes, escogimos el envío 5 (0.90471) como modelo final, verificamos el cumplimiento del enunciado y del comunicado sobre arquitecturas, y preparamos la entrega.
+
+Ningún modelo generativo se usó para etiquetar o clasificar los textos de `eval.csv`. Todas las predicciones enviadas a Kaggle salen del modelo entregado, entrenado solo con `train.csv` y los datos sintéticos descritos arriba.
